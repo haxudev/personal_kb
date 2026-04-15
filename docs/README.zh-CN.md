@@ -4,11 +4,15 @@
 
 一个本地优先、代理驱动的知识库，专为 [GitHub Copilot CLI](https://docs.github.com/en/copilot/github-copilot-in-the-cli) 设计。将文件放入 `inbox/`，转换为 Markdown，然后用自然语言搜索——一切都在本地完成。
 
+## Copilot CLI 官方目录约定
+
+仓库级自定义 agent 放在 `.github/agents/`，仓库级 skills 放在 `.github/skills/`，用户级 Copilot 资产（如 MCP 配置、个人 agents）放在 `~/.copilot/`。本项目现已按该官方约定整理。
+
 ## 功能特性
 
 - **`/ingest`** — 使用 [markitdown](https://github.com/microsoft/markitdown) 将文件（PDF、DOCX、HTML、CSV 等）转换为可搜索的 Markdown
 - **`/query`** — 使用 [ripgrep](https://github.com/BurntSushi/ripgrep) 对知识库进行全文检索
-- **代理优先设计** — 以 Copilot CLI agent 形式构建，包含 skills、tools 和斜杠命令
+- **代理优先设计** — 基于 Copilot CLI 官方自定义能力构建：repository agent、skills 与 instructions
 - **MCP 集成** — 通过外部知识源（如 Microsoft Learn）扩展能力
 - **100% 本地运行** — 无需云服务、无需向量数据库、无需 Web UI
 
@@ -53,37 +57,40 @@ pip install "markitdown[all]"
 
 ```
 personal_kb/
-├── agent.md                    # 代理定义
-├── commands/                   # 斜杠命令定义
-│   ├── ingest.md
-│   └── query.md
-├── skills/                     # 技能定义
-│   ├── ingest-files.md
-│   └── search-local.md
-├── tools/
-│   └── mcp.json                # MCP 服务器配置
-├── scripts/
-│   ├── ingest.py               # 摄入核心实现
-│   └── preflight.sh            # 环境检查
-├── inbox/                      # 将文件放在这里
-├── workmemory/                 # 转换后的 Markdown 输出
-├── tests/                      # 测试套件
-├── docs/                       # 多语言 README
+├── AGENTS.md
 ├── .github/
+│   ├── agents/
+│   │   └── personal-kb.agent.md
+│   ├── skills/
+│   │   ├── ingest/
+│   │   │   └── SKILL.md
+│   │   └── query/
+│   │       └── SKILL.md
+│   ├── instructions/
+│   │   └── python.instructions.md
 │   ├── copilot-instructions.md
 │   └── workflows/ci.yml
-├── LICENSE                     # MIT
+├── tools/
+│   └── mcp.example.json
+├── scripts/
+│   ├── ingest.py
+│   └── preflight.sh
+├── inbox/
+├── workmemory/
+├── tests/
+├── docs/
+├── LICENSE
 └── .gitignore
 ```
-
 ## MCP 配置
 
 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) 允许你的代理访问外部知识源。本项目包含 Microsoft Learn 的配置。
 
 ### 在 Copilot CLI 中配置
 
-1. 将 `tools/mcp.json` 复制或引用到你的 Copilot CLI MCP 配置中
-2. Microsoft Learn MCP 服务器提供对 Microsoft 文档的访问
+1. 将 `tools/mcp.example.json` 的内容复制或合并到 `~/.copilot/mcp-config.json`
+2. Microsoft Learn MCP 服务器用于访问微软文档
+3. 用户级 MCP / agents / skills 默认都位于 `~/.copilot/` 下
 
 ```json
 {

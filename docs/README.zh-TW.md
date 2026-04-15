@@ -53,37 +53,40 @@ pip install "markitdown[all]"
 
 ```
 personal_kb/
-├── agent.md                    # 代理定義
-├── commands/                   # 斜線命令定義
-│   ├── ingest.md
-│   └── query.md
-├── skills/                     # 技能定義
-│   ├── ingest-files.md
-│   └── search-local.md
-├── tools/
-│   └── mcp.json                # MCP 伺服器設定
-├── scripts/
-│   ├── ingest.py               # 匯入核心實作
-│   └── preflight.sh            # 環境檢查
-├── inbox/                      # 將檔案放在這裡
-├── workmemory/                 # 轉換後的 Markdown 輸出
-├── tests/                      # 測試套件
-├── docs/                       # 多語言 README
+├── AGENTS.md
 ├── .github/
+│   ├── agents/
+│   │   └── personal-kb.agent.md
+│   ├── skills/
+│   │   ├── ingest/
+│   │   │   └── SKILL.md
+│   │   └── query/
+│   │       └── SKILL.md
+│   ├── instructions/
+│   │   └── python.instructions.md
 │   ├── copilot-instructions.md
 │   └── workflows/ci.yml
-├── LICENSE                     # MIT
+├── tools/
+│   └── mcp.example.json
+├── scripts/
+│   ├── ingest.py
+│   └── preflight.sh
+├── inbox/
+├── workmemory/
+├── tests/
+├── docs/
+├── LICENSE
 └── .gitignore
 ```
-
 ## MCP 設定
 
 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) 允許代理存取外部知識來源。本專案包含 Microsoft Learn 的設定。
 
 ### 在 Copilot CLI 中設定
 
-1. 將 `tools/mcp.json` 複製或參照到你的 Copilot CLI MCP 設定中
-2. Microsoft Learn MCP 伺服器提供對 Microsoft 文件的存取
+1. 將 `tools/mcp.example.json` 的內容複製或合併到 `~/.copilot/mcp-config.json`
+2. Microsoft Learn MCP 伺服器用於存取微軟文件
+3. 使用者級 MCP / agents / skills 預設都位於 `~/.copilot/`
 
 ```json
 {

@@ -4,6 +4,10 @@
 
 로컬 우선, 에이전트 기반 지식 베이스. [GitHub Copilot CLI](https://docs.github.com/en/copilot/github-copilot-in-the-cli)용으로 설계되었습니다. 파일을 `inbox/`에 넣고 Markdown으로 변환한 뒤 자연어로 검색하세요. 모든 것이 로컬에서 실행됩니다.
 
+## Copilot CLI 공식 디렉터리 규칙
+
+저장소 수준 custom agent 는 `.github/agents/`, 저장소 수준 skills 는 `.github/skills/`, 사용자 수준 Copilot 자산(MCP 설정, 개인 agents 등)은 `~/.copilot/` 아래에 둡니다. 이 프로젝트도 해당 공식 규칙에 맞게 정리했습니다.
+
 ## 기능
 
 - **`/ingest`** — [markitdown](https://github.com/microsoft/markitdown)을 사용하여 파일(PDF, DOCX, HTML, CSV 등)을 검색 가능한 Markdown으로 변환
@@ -53,37 +57,40 @@ pip install "markitdown[all]"
 
 ```
 personal_kb/
-├── agent.md                    # 에이전트 정의
-├── commands/                   # 슬래시 커맨드 정의
-│   ├── ingest.md
-│   └── query.md
-├── skills/                     # 스킬 정의
-│   ├── ingest-files.md
-│   └── search-local.md
-├── tools/
-│   └── mcp.json                # MCP 서버 설정
-├── scripts/
-│   ├── ingest.py               # 수집 핵심 구현
-│   └── preflight.sh            # 환경 확인
-├── inbox/                      # 파일을 여기에 배치
-├── workmemory/                 # 변환된 Markdown 출력
-├── tests/                      # 테스트 스위트
-├── docs/                       # 다국어 README
+├── AGENTS.md
 ├── .github/
+│   ├── agents/
+│   │   └── personal-kb.agent.md
+│   ├── skills/
+│   │   ├── ingest/
+│   │   │   └── SKILL.md
+│   │   └── query/
+│   │       └── SKILL.md
+│   ├── instructions/
+│   │   └── python.instructions.md
 │   ├── copilot-instructions.md
 │   └── workflows/ci.yml
-├── LICENSE                     # MIT
+├── tools/
+│   └── mcp.example.json
+├── scripts/
+│   ├── ingest.py
+│   └── preflight.sh
+├── inbox/
+├── workmemory/
+├── tests/
+├── docs/
+├── LICENSE
 └── .gitignore
 ```
-
 ## MCP 설정
 
 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)을 통해 에이전트가 외부 지식 소스에 접근할 수 있습니다. 본 프로젝트에는 Microsoft Learn 설정이 포함되어 있습니다.
 
 ### Copilot CLI에서 설정
 
-1. `tools/mcp.json`을 Copilot CLI MCP 설정에 복사 또는 참조
-2. Microsoft Learn MCP 서버가 Microsoft 문서에 대한 접근을 제공
+1. `tools/mcp.example.json` 내용을 `~/.copilot/mcp-config.json` 에 복사하거나 병합합니다
+2. Microsoft Learn MCP 서버를 통해 Microsoft 문서를 검색합니다
+3. 사용자 수준 MCP / agents / skills 는 기본적으로 `~/.copilot/` 아래에 저장됩니다
 
 ```json
 {

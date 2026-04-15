@@ -4,11 +4,13 @@
 
 A local-first, agent-driven knowledge base for [GitHub Copilot CLI](https://docs.github.com/en/copilot/github-copilot-in-the-cli). Drop files into `inbox/`, ingest them as Markdown, and search with natural language — all on your machine.
 
+> **Copilot CLI alignment:** repository-level custom agents live in `.github/agents/`, repository skills live in `.github/skills/`, and user-level assets live under `~/.copilot/`. This project now follows those official conventions.
+
 ## Features
 
 - **`/ingest`** — Convert files (PDF, DOCX, HTML, CSV, etc.) to searchable Markdown using [markitdown](https://github.com/microsoft/markitdown)
 - **`/query`** — Full-text search across your knowledge base using [ripgrep](https://github.com/BurntSushi/ripgrep)
-- **Agent-first design** — Built as a Copilot CLI agent with skills, tools, and slash commands
+- **Agent-first design** — Built around official Copilot CLI customization points: repository agents, skills, and instructions
 - **MCP integration** — Extend with external knowledge sources like Microsoft Learn
 - **100% local** — No cloud services, no vector databases, no web UI
 
@@ -49,41 +51,44 @@ pip install "markitdown[all]"
    # Or in Copilot CLI: /query your query
    ```
 
-## Project Structure
+## Official Copilot CLI Layout
 
 ```
 personal_kb/
-├── agent.md                    # Agent definition
-├── commands/
-│   ├── ingest.md               # /ingest command spec
-│   └── query.md                # /query command spec
-├── skills/
-│   ├── ingest-files.md         # Ingestion skill
-│   └── search-local.md         # Search skill
-├── tools/
-│   └── mcp.json                # MCP server configuration
-├── scripts/
-│   ├── ingest.py               # Core ingest implementation
-│   └── preflight.sh            # Environment check
-├── inbox/                      # Drop files here
-├── workmemory/                 # Ingested Markdown output
-├── tests/                      # Test suite
-├── docs/                       # Multilingual READMEs
+├── AGENTS.md
 ├── .github/
+│   ├── agents/
+│   │   └── personal-kb.agent.md
+│   ├── skills/
+│   │   ├── ingest/
+│   │   │   └── SKILL.md
+│   │   └── query/
+│   │       └── SKILL.md
+│   ├── instructions/
+│   │   └── python.instructions.md
 │   ├── copilot-instructions.md
 │   └── workflows/ci.yml
-├── LICENSE                     # MIT
+├── tools/
+│   └── mcp.example.json
+├── scripts/
+│   ├── ingest.py
+│   └── preflight.sh
+├── inbox/
+├── workmemory/
+├── tests/
+├── docs/
+├── LICENSE
 └── .gitignore
 ```
-
 ## MCP Configuration
 
 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) lets your agent access external knowledge sources. This project includes a configuration for Microsoft Learn.
 
 ### Setup in Copilot CLI
 
-1. Copy or reference `tools/mcp.json` in your Copilot CLI MCP configuration
+1. Copy or merge `tools/mcp.example.json` into `~/.copilot/mcp-config.json`
 2. The Microsoft Learn MCP server provides access to Microsoft's documentation
+3. User-level Copilot CLI assets such as MCP config and personal agents live under `~/.copilot/`
 
 ```json
 {
@@ -99,7 +104,7 @@ personal_kb/
 
 ### Adding Custom MCP Servers
 
-Edit `tools/mcp.json` to add your own MCP servers for additional knowledge sources.
+Edit `tools/mcp.example.json`, then merge it into `~/.copilot/mcp-config.json`, to add your own MCP servers for additional knowledge sources.
 
 ## Running Tests
 

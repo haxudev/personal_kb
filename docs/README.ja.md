@@ -4,6 +4,10 @@
 
 ローカルファースト、エージェント駆動のナレッジベース。[GitHub Copilot CLI](https://docs.github.com/en/copilot/github-copilot-in-the-cli) 向けに設計されています。ファイルを `inbox/` に入れて Markdown に変換し、自然言語で検索できます。すべてローカルで完結します。
 
+## Copilot CLI の公式ディレクトリ構成
+
+リポジトリレベルの custom agent は `.github/agents/`、リポジトリレベルの skills は `.github/skills/`、ユーザーレベルの Copilot 資産（MCP 設定や個人 agent など）は `~/.copilot/` に配置します。本プロジェクトもこの公式構成に合わせて整理しました。
+
 ## 機能
 
 - **`/ingest`** — [markitdown](https://github.com/microsoft/markitdown) を使って各種ファイル（PDF、DOCX、HTML、CSV など）を検索可能な Markdown に変換
@@ -53,37 +57,40 @@ pip install "markitdown[all]"
 
 ```
 personal_kb/
-├── agent.md                    # エージェント定義
-├── commands/                   # スラッシュコマンド定義
-│   ├── ingest.md
-│   └── query.md
-├── skills/                     # スキル定義
-│   ├── ingest-files.md
-│   └── search-local.md
-├── tools/
-│   └── mcp.json                # MCP サーバー設定
-├── scripts/
-│   ├── ingest.py               # 取り込みのコア実装
-│   └── preflight.sh            # 環境チェック
-├── inbox/                      # ファイルをここに配置
-├── workmemory/                 # 変換された Markdown 出力
-├── tests/                      # テストスイート
-├── docs/                       # 多言語 README
+├── AGENTS.md
 ├── .github/
+│   ├── agents/
+│   │   └── personal-kb.agent.md
+│   ├── skills/
+│   │   ├── ingest/
+│   │   │   └── SKILL.md
+│   │   └── query/
+│   │       └── SKILL.md
+│   ├── instructions/
+│   │   └── python.instructions.md
 │   ├── copilot-instructions.md
 │   └── workflows/ci.yml
-├── LICENSE                     # MIT
+├── tools/
+│   └── mcp.example.json
+├── scripts/
+│   ├── ingest.py
+│   └── preflight.sh
+├── inbox/
+├── workmemory/
+├── tests/
+├── docs/
+├── LICENSE
 └── .gitignore
 ```
-
 ## MCP 設定
 
 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) により、エージェントが外部知識ソースにアクセスできます。本プロジェクトには Microsoft Learn の設定が含まれています。
 
 ### Copilot CLI での設定
 
-1. `tools/mcp.json` を Copilot CLI の MCP 設定にコピーまたは参照
-2. Microsoft Learn MCP サーバーが Microsoft ドキュメントへのアクセスを提供
+1. `tools/mcp.example.json` の内容を `~/.copilot/mcp-config.json` にコピーまたはマージします
+2. Microsoft Learn MCP サーバーを使って Microsoft ドキュメントを参照します
+3. ユーザーレベルの MCP / agents / skills は `~/.copilot/` 配下に保存されます
 
 ```json
 {
