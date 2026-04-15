@@ -24,6 +24,16 @@ A local-first, agent-driven knowledge base for [GitHub Copilot CLI](https://docs
 
 ### Setup
 
+**Windows CMD / PowerShell (preferred)**
+```bat
+git clone https://github.com/haxudev/personal_kb.git
+cd personal_kb
+python -m venv .venv
+.venv\Scripts\activate
+pip install "markitdown[all]"
+```
+
+**macOS / Linux / WSL**
 ```bash
 git clone https://github.com/haxudev/personal_kb.git
 cd personal_kb
@@ -34,16 +44,33 @@ pip install "markitdown[all]"
 
 ### Usage
 
-1. Drop files into `inbox/`:
+1. Drop files into `inbox/`.
+
+   **Windows CMD / PowerShell**
+   ```bat
+   copy C:\Users\you\Documents\report.pdf inbox\
+   ```
+
+   **macOS / Linux / WSL**
    ```bash
    cp ~/Documents/report.pdf inbox/
    ```
 
-2. Ingest files:
-   ```bash
-   python scripts/ingest.py
-   # Or in Copilot CLI: /ingest
+2. Ingest files (detect the current environment and use the matching command style):
+
+   **Windows CMD / PowerShell preferred**
+   ```bat
+   python scripts\preflight.py
+   python scripts\ingest.py
    ```
+
+   **macOS / Linux / WSL**
+   ```bash
+   python scripts/preflight.py
+   python scripts/ingest.py
+   ```
+
+   Or in Copilot CLI: `/ingest`
 
 3. Search your knowledge base:
    ```bash
@@ -72,7 +99,7 @@ personal_kb/
 │   └── mcp.example.json
 ├── scripts/
 │   ├── ingest.py
-│   └── preflight.sh
+│   └── preflight.py
 ├── inbox/
 ├── workmemory/
 ├── tests/
@@ -108,11 +135,13 @@ Edit `tools/mcp.example.json`, then merge it into `~/.copilot/mcp-config.json`, 
 
 ## Running Tests
 
-```bash
-# Ensure dependencies are installed
-bash scripts/preflight.sh
+```text
+# Windows CMD / PowerShell
+python scripts\preflight.py
+python tests\test_all.py
 
-# Run all tests
+# macOS / Linux / WSL
+python scripts/preflight.py
 python tests/test_all.py
 ```
 

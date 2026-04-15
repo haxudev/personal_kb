@@ -70,7 +70,7 @@ personal_kb/
 │   └── mcp.example.json
 ├── scripts/
 │   ├── ingest.py
-│   └── preflight.sh
+│   └── preflight.py
 ├── inbox/
 ├── workmemory/
 ├── tests/
@@ -103,7 +103,7 @@ personal_kb/
 ## 執行測試
 
 ```bash
-bash scripts/preflight.sh
+python scripts/preflight.py
 python tests/test_all.py
 ```
 
