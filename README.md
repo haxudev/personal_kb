@@ -4,13 +4,11 @@
 
 A local-first, agent-driven knowledge base for [GitHub Copilot CLI](https://docs.github.com/en/copilot/github-copilot-in-the-cli). Drop files into `inbox/`, ingest them as Markdown, and search with natural language — all on your machine.
 
-> **Copilot CLI alignment:** repository-level custom agents live in `.github/agents/`, repository skills live in `.github/skills/`, and user-level assets live under `~/.copilot/`. This project now follows those official conventions.
-
 ## Features
 
 - **`/ingest`** — Convert files (PDF, DOCX, HTML, CSV, etc.) to searchable Markdown using [markitdown](https://github.com/microsoft/markitdown)
 - **`/query`** — Full-text search across your knowledge base using [ripgrep](https://github.com/BurntSushi/ripgrep)
-- **Agent-first design** — Built around official Copilot CLI customization points: repository agents, skills, and instructions
+- **Agent-first design** — Built around official Copilot CLI customization points: slash-command-oriented skills and repository instructions
 - **MCP integration** — Extend with external knowledge sources like Microsoft Learn
 - **100% local** — No cloud services, no vector databases, no web UI
 
@@ -98,14 +96,11 @@ pip install "markitdown[all]"
 | Query | `rg --type md --smart-case "your query" workmemory` | `rg --type md --smart-case "your query" workmemory/` |
 | Query fallback | `findstr /S /N /I "your query" workmemory\*.md` | `grep -rn --include="*.md" "your query" workmemory/` |
 
-## Official Copilot CLI Layout
+## Copilot CLI Layout
 
 ```
 personal_kb/
-├── AGENTS.md
 ├── .github/
-│   ├── agents/
-│   │   └── personal-kb.agent.md
 │   ├── skills/
 │   │   ├── ingest/
 │   │   │   └── SKILL.md

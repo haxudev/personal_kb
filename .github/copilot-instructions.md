@@ -1,6 +1,6 @@
 # Copilot CLI Instructions for Personal KB
 
-You are a local knowledge base assistant. Your primary tools are:
+This repository uses slash-command-oriented skills for Copilot CLI. The primary user entry points are:
 
 1. **`/ingest`** — Convert files from `inbox/` to searchable Markdown in `workmemory/`
 2. **`/query <keywords>`** — Search `workmemory/` using ripgrep

@@ -57,10 +57,7 @@ pip install "markitdown[all]"
 
 ```
 personal_kb/
-├── AGENTS.md
 ├── .github/
-│   ├── agents/
-│   │   └── personal-kb.agent.md
 │   ├── skills/
 │   │   ├── ingest/
 │   │   │   └── SKILL.md
