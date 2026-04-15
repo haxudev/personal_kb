@@ -24,5 +24,5 @@ This repository is optimized for GitHub Copilot CLI.
 ## Command execution preference
 
 - Detect the user execution environment before suggesting commands.
-- If the user is on Windows, prefer Windows CMD / PowerShell command syntax first.
+- If the user is on Windows, prefer Windows CMD / PowerShell command syntax first for both `/ingest` and `/query`.
 - Only default to POSIX shell syntax for macOS, Linux, or WSL contexts.

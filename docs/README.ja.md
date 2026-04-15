@@ -128,3 +128,14 @@ python tests/test_all.py
 ## ライセンス
 
 [MIT](../LICENSE)
+
+
+## Command Reference Matrix
+
+| Scenario | Windows CMD / PowerShell | macOS / Linux / WSL |
+|---|---|---|
+| Preflight | `python scripts\preflight.py` | `python scripts/preflight.py` |
+| Ingest | `python scripts\ingest.py` | `python scripts/ingest.py` |
+| Ingest (force) | `python scripts\ingest.py --force` | `python scripts/ingest.py --force` |
+| Query | `rg --type md --smart-case "your query" workmemory` | `rg --type md --smart-case "your query" workmemory/` |
+| Query fallback | `findstr /S /N /I "your query" workmemory\*.md` | `grep -rn --include="*.md" "your query" workmemory/` |
