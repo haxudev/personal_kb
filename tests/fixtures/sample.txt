@@ -1,0 +1,13 @@
+This is a sample text file for testing the personal_kb ingest pipeline.
+
+A knowledge base is a centralized repository of information that can be searched
+and queried by users or automated agents. In this project, we build a local
+knowledge base powered by Copilot CLI.
+
+Key concepts:
+- Agent-first design: the knowledge base is designed to be used by AI agents
+- Local-first: all data stays on your machine
+- Markdown output: all ingested content is converted to searchable Markdown
+
+This file contains the keyword "knowledge base" which should be findable
+via the /query command using ripgrep.

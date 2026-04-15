@@ -1,0 +1,4 @@
+This file is inside a subdirectory to test that the ingest script
+preserves relative path structure when converting files.
+
+It mentions deployment pipelines and CI/CD workflows.

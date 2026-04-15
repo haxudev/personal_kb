@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "microsoft-learn": {
+      "command": "npx",
+      "args": ["-y", "@anthropic/mcp-remote", "https://learn.microsoft.com/api/mcp"],
+      "description": "Microsoft Learn documentation search via MCP protocol"
+    }
+  }
+}

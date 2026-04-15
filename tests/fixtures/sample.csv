@@ -1,0 +1,5 @@
+Name,Category,Description
+MCP,Protocol,"Model Context Protocol enables AI agents to access external data sources"
+Copilot CLI,Tool,"GitHub Copilot in the command line interface"
+markitdown,Library,"Python library to convert various file formats to Markdown"
+ripgrep,Tool,"Fast recursive search tool written in Rust"
